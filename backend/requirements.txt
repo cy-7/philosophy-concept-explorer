@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+pillow
+python-multipart
+sentence-transformers
+faiss-cpu
+numpy
+llama-cpp-python
+requests
+
+
