@@ -6,6 +6,8 @@
 
 基于本地大语言模型的哲学概念解释和语义变迁追踪系统。通过AI分析哲学概念在不同历史时期的含义变化，生成可视化图表展示语义漂移。
 
+![Philosophy Concept Explorer](https://img.shields.io/badge/Philosophy%20Concept%20Explorer-Demo-blue)
+
 ## ✨ 功能特性
 
 - 🧠 **本地大语言模型驱动** - 使用Qwen-7B-Chat模型进行概念分析
