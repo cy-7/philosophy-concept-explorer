@@ -6,7 +6,7 @@
 
 基于本地大语言模型的哲学概念解释和语义变迁追踪系统。通过AI分析哲学概念在不同历史时期的含义变化，生成可视化图表展示语义漂移。
 
-![Philosophy Concept Explorer界面](demo.png)
+![Philosophy Concept Explorer界面](screenshots/demo.png)
 
 ## ✨ 功能特性
 
