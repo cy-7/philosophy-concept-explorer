@@ -57,50 +57,33 @@ echo Dependencies check passed!
 echo.
 
 echo Checking model file...
-if not exist "C:\Users\cyq12\llama.cpp\qwen-7b-chat-f16.gguf" (
-    echo Error: Model file not found!
-    echo Please download qwen-7b-chat-f16.gguf to C:\Users\cyq12\llama.cpp\
-    pause
-    exit /b 1
-)
-echo Model file found!
+echo Please ensure you have downloaded a GGUF model file
+echo and updated the path in backend/config.py
 echo.
+echo Example model files:
+echo - qwen-7b-chat-f16.gguf
+echo - qwen-7b-chat-q4_0.gguf
+echo - llama-2-7b-chat.gguf
+echo.
+pause
 
 echo Checking LLaMA.cpp executable...
-if not exist "C:\Users\cyq12\llama.cpp\build\bin\Release\llama-server.exe" (
-    echo Error: LLaMA.cpp not compiled!
-    echo Please compile LLaMA.cpp first
-    pause
-    exit /b 1
-)
-echo LLaMA.cpp executable found!
+echo Please ensure LLaMA.cpp is compiled and the path is correct
+echo You can update the path in this script or use environment variables
 echo.
+pause
 
 echo Step 1: Starting LLaMA.cpp Server (CPU Mode)...
-start "LLaMA.cpp Server" cmd /k "cd /d C:\Users\cyq12\llama.cpp\build\bin\Release && llama-server.exe -m ..\..\..\qwen-7b-chat-f16.gguf -c 2048 --host 0.0.0.0 --port 8080"
-
-echo Waiting for LLaMA.cpp server to start...
-set "llama_started=false"
-for /l %%i in (1,1,30) do (
-    netstat -an | findstr ":8080" >nul
-    if !errorlevel! equ 0 (
-        echo LLaMA.cpp server started successfully!
-        set "llama_started=true"
-        goto :llama_ready
-    )
-    echo Waiting... %%i/30
-    timeout /t 1 /nobreak >nul
-)
-
-:llama_ready
-if "%llama_started%"=="false" (
-    echo Warning: LLaMA.cpp server may not be fully ready
-    echo Continuing anyway...
-)
+echo Please update the LLaMA.cpp path in this script before running
 echo.
+echo Example command:
+echo cd YOUR_LLAMA_CPP_PATH
+echo .\llama-server.exe -m YOUR_MODEL_FILE -c 2048 --host 0.0.0.0 --port 8080
+echo.
+pause
 
 echo Step 2: Starting Backend Service...
-start "Backend Server" cmd /k "cd /d c:\project\test_2 && python run_backend.py"
+start "Backend Server" cmd /k "cd /d %~dp0 && python run_backend.py"
 
 echo Waiting for backend service to start...
 set "backend_started=false"
@@ -123,7 +106,7 @@ if "%backend_started%"=="false" (
 echo.
 
 echo Step 3: Starting Frontend Service...
-start "Frontend Server" cmd /k "cd /d c:\project\test_2\frontend && npm start"
+start "Frontend Server" cmd /k "cd /d %~dp0\frontend && npm start"
 
 echo Waiting for frontend service to start...
 set "frontend_started=false"
@@ -155,16 +138,11 @@ echo.
 echo Service URLs:
 echo - Frontend: http://localhost:3000
 echo - Backend: http://localhost:8000
-echo - LLaMA.cpp: http://localhost:8080
+echo - LLaMA.cpp: http://localhost:8080 (if started manually)
 echo.
 
 echo Service Status:
-if "%llama_started%"=="true" (
-    echo - LLaMA.cpp: RUNNING
-) else (
-    echo - LLaMA.cpp: UNKNOWN
-)
-
+echo - LLaMA.cpp: MANUAL START REQUIRED
 if "%backend_started%"=="true" (
     echo - Backend: RUNNING
 ) else (
@@ -178,8 +156,8 @@ if "%frontend_started%"=="true" (
 )
 
 echo.
-echo Note: Running in CPU mode for stability
-echo Please wait for all services to fully start before using
+echo Note: LLaMA.cpp server needs to be started manually
+echo Please update the paths in this script or use environment variables
 echo.
 echo Press any key to exit this script...
 pause >nul

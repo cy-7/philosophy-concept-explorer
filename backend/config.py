@@ -22,7 +22,7 @@ MODELS_DIR.mkdir(exist_ok=True)
 # 模型配置
 MODEL_CONFIG = {
     "default_model": "qwen-7b-chat",  # 默认模型名称
-    "model_path": "C:/Users/cyq12/llama.cpp/qwen-7b-chat-f16.gguf",  # 你的模型路径
+    "model_path": "YOUR_MODEL_PATH_HERE",  # 请修改为你的模型文件路径
     "max_tokens": 512,  # 最大生成token数
     "temperature": 0.7,  # 生成温度
     "context_length": 2048,  # 上下文长度
@@ -52,12 +52,12 @@ LOCAL_MODEL_CONFIG = {
     "enabled": True,
     "host": "localhost",
     "port": 8080,
-    "model_path": "C:/Users/cyq12/llama.cpp/qwen-7b-chat-f16.gguf",
+    "model_path": "YOUR_MODEL_PATH_HERE",  # 请修改为你的模型文件路径
     "api_type": "openai_compatible",  # 使用OpenAI兼容的API格式
     "max_tokens": 2000,
     "temperature": 0.7,
     "context_length": 2048,
-    "gpu_enabled": True,  # 启用GPU（预编译版本安装后）
+    "gpu_enabled": False,  # 默认禁用GPU，需要时手动启用
     "gpu_layers": 35,     # GPU层数
     "main_gpu": 0,        # 主GPU索引
 }

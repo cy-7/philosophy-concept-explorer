@@ -39,7 +39,13 @@ echo Ports cleared successfully!
 echo.
 
 echo Starting LLaMA.cpp Server in CPU mode...
-start "LLaMA.cpp Server" cmd /k "cd /d C:\Users\cyq12\llama.cpp\build\bin\Release && llama-server.exe -m ..\..\..\qwen-7b-chat-f16.gguf -c 2048 --host 0.0.0.0 --port 8080"
+echo Please update the LLaMA.cpp path in this script before running
+echo.
+echo Example command:
+echo cd YOUR_LLAMA_CPP_PATH
+echo .\llama-server.exe -m YOUR_MODEL_FILE -c 2048 --host 0.0.0.0 --port 8080
+echo.
+pause
 
 echo Waiting for LLaMA.cpp server to start...
 set "llama_started=false"
@@ -62,7 +68,7 @@ if "%llama_started%"=="false" (
 echo.
 
 echo Starting Backend Service...
-start "Backend Server" cmd /k "cd /d c:\project\test_2 && python run_backend.py"
+start "Backend Server" cmd /k "cd /d %~dp0 && python run_backend.py"
 
 echo Waiting for backend service to start...
 set "backend_started=false"
@@ -85,7 +91,7 @@ if "%backend_started%"=="false" (
 echo.
 
 echo Starting Frontend Service...
-start "Frontend Server" cmd /k "cd /d c:\project\test_2\frontend && npm start"
+start "Frontend Server" cmd /k "cd /d %~dp0\frontend && npm start"
 
 echo Waiting for frontend service to start...
 set "frontend_started=false"
@@ -117,14 +123,14 @@ echo.
 echo Service URLs:
 echo - Frontend: http://localhost:3000
 echo - Backend: http://localhost:8000
-echo - LLaMA.cpp: http://localhost:8080
+echo - LLaMA.cpp: http://localhost:8080 (if started manually)
 echo.
 
 echo Service Status:
 if "%llama_started%"=="true" (
     echo - LLaMA.cpp: RUNNING
 ) else (
-    echo - LLaMA.cpp: UNKNOWN
+    echo - LLaMA.cpp: MANUAL START REQUIRED
 )
 
 if "%backend_started%"=="true" (
@@ -140,6 +146,7 @@ if "%frontend_started%"=="true" (
 )
 
 echo.
-echo Note: Running in CPU mode for stability
+echo Note: LLaMA.cpp server needs to be started manually
+echo Please update the paths in this script or use environment variables
 echo Press any key to exit...
 pause >nul
